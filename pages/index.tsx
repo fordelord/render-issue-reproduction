@@ -42,38 +42,42 @@ export default function Home() {
         className=""
         style={{ display: "flex", justifyContent: "space-between" }}
       >
-        <ul style={{ listStyle: "none" }} className="">
+        <ul style={{ listStyle: "none" }} className="list">
           {emails.map((email, index) => {
-            return <li key={index}>{email}</li>;
+            return (
+              <li key={index} className="list-item">
+                {email}
+              </li>
+            );
           })}
         </ul>
-        <ul style={{ listStyle: "none" }} className="">
+        <ul style={{ listStyle: "none" }} className="list">
           {names.map((name, index) => {
-            return <li key={index}>{name}</li>;
+            return (
+              <li key={index} className="list-item">
+                {name}
+              </li>
+            );
           })}
         </ul>
-        <ul style={{ listStyle: "none" }} className="">
+        <ul style={{ listStyle: "none" }} className="list">
           {ids.map((id, index) => {
             return (
-              <li key={index} className="">
+              <li key={index} className="list-item">
                 {id}
               </li>
             );
           })}
         </ul>
-        <ul className="" style={{ listStyle: "none" }}>
+        <ul style={{ listStyle: "none" }} className="list">
           {animals.map((animal, index) => {
             return (
-              <li
-                key={index}
-                className=""
-                style={{ height: "24.5px", marginRight: 0 }}
-              >
+              <li key={index} className="list-item" style={{ marginRight: 0 }}>
                 {animal}
                 <FormControlLabel
                   id={animal}
                   control={<Checkbox checked={usersList.includes(animal)} />}
-                  label="Compare"
+                  label="Checkbox"
                   onChange={() => {
                     if (usersList.includes(animal)) {
                       const updatedPlayerList = usersList.filter(
@@ -91,6 +95,13 @@ export default function Home() {
           })}
         </ul>
       </div>
+      <style jsx>
+        {`
+          .list-item {
+            height: 25px;
+          }
+        `}
+      </style>
     </div>
   );
 }
