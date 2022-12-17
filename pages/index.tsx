@@ -9,14 +9,6 @@ import { useEffect, useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import { FormControlLabel } from "@mui/material";
 
-type arrayObjects = {
-  street: string;
-  city: string;
-  zipCode: string;
-  county: string;
-  country: string;
-};
-
 export default function Home() {
   const [emails, setEmails] = useState<string[]>([]);
   const [names, setNames] = useState<string[]>([]);
@@ -42,7 +34,7 @@ export default function Home() {
         className=""
         style={{ display: "flex", justifyContent: "space-between" }}
       >
-        <ul style={{ listStyle: "none" }} className="list">
+        <ul className="list">
           {emails.map((email, index) => {
             return (
               <li key={index} className="list-item">
@@ -51,7 +43,7 @@ export default function Home() {
             );
           })}
         </ul>
-        <ul style={{ listStyle: "none" }} className="list">
+        <ul className="list">
           {names.map((name, index) => {
             return (
               <li key={index} className="list-item">
@@ -60,7 +52,7 @@ export default function Home() {
             );
           })}
         </ul>
-        <ul style={{ listStyle: "none" }} className="list">
+        <ul className="list">
           {ids.map((id, index) => {
             return (
               <li key={index} className="list-item">
@@ -69,7 +61,7 @@ export default function Home() {
             );
           })}
         </ul>
-        <ul style={{ listStyle: "none" }} className="list">
+        <ul className="list">
           {animals.map((animal, index) => {
             return (
               <li key={index} className="list-item" style={{ marginRight: 0 }}>
@@ -97,6 +89,9 @@ export default function Home() {
       </div>
       <style jsx>
         {`
+          .list {
+            list-style: none;
+          }
           .list-item {
             height: 25px;
           }
