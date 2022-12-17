@@ -1,8 +1,13 @@
 import Head from "next/head";
-import { randAddress, randEmail, randFullName, randIban } from "@ngneat/falso";
+import {
+  randAccessory,
+  randEmail,
+  randFullName,
+  randIban,
+} from "@ngneat/falso";
 import { useEffect, useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
-import { styled } from "@mui/material/styles";
+import { FormControlLabel } from "@mui/material";
 
 type arrayObjects = {
   street: string;
@@ -16,19 +21,14 @@ export default function Home() {
   const [emails, setEmails] = useState<string[]>([]);
   const [names, setNames] = useState<string[]>([]);
   const [ids, setIds] = useState<string[]>([]);
-  const [adresses, setAdresses] = useState<arrayObjects[]>([]);
-
-  const Div = styled("div")(({ theme }) => ({
-    ...theme.typography.button,
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(1),
-  }));
+  const [animals, setAnimals] = useState<string[]>([]);
+  const [usersList, setUsersList] = useState<string[]>([]);
 
   useEffect(() => {
-    setEmails(randEmail({ length: 100 }));
-    setNames(randFullName({ length: 100 }));
-    setIds(randIban({ length: 100 }));
-    setAdresses(randAddress({ length: 100 }));
+    setEmails(randEmail({ length: 1000 }));
+    setNames(randFullName({ length: 1000 }));
+    setIds(randIban({ length: 1000 }));
+    setAnimals(randAccessory({ length: 1000 }));
   }, []);
 
   return (
@@ -42,65 +42,54 @@ export default function Home() {
         className=""
         style={{ display: "flex", justifyContent: "space-between" }}
       >
-        <Div className="">
-          {emails.map((email) => {
-            return (
-              <div key={email} className="">
-                {email}
-              </div>
-            );
+        <ul style={{ listStyle: "none" }} className="">
+          {emails.map((email, index) => {
+            return <li key={index}>{email}</li>;
           })}
-        </Div>
-        <Div className="">
-          {names.map((name) => {
-            return (
-              <div key={name} className="">
-                {name}
-              </div>
-            );
+        </ul>
+        <ul style={{ listStyle: "none" }} className="">
+          {names.map((name, index) => {
+            return <li key={index}>{name}</li>;
           })}
-        </Div>
-        <Div className="">
-          {ids.map((id) => {
+        </ul>
+        <ul style={{ listStyle: "none" }} className="">
+          {ids.map((id, index) => {
             return (
-              <div key={id} className="">
+              <li key={index} className="">
                 {id}
-              </div>
+              </li>
             );
           })}
-        </Div>
-        <Div className="">
-          {adresses.map((adress) => {
+        </ul>
+        <ul className="" style={{ listStyle: "none" }}>
+          {animals.map((animal, index) => {
             return (
-              <div key={adress.street} className="">
-                {adress.street}
-              </div>
-            );
-          })}
-        </Div>
-        <Div className="">
-          {adresses.map((adress) => {
-            return (
-              <div key={adress.city} className="">
-                {adress.city}
-              </div>
-            );
-          })}
-        </Div>
-        <Div className="">
-          {adresses.map((adress) => {
-            return (
-              <div
-                key={adress.zipCode}
+              <li
+                key={index}
                 className=""
-                style={{ height: "24.5px" }}
+                style={{ height: "24.5px", marginRight: 0 }}
               >
-                {adress.zipCode}
-                <Checkbox style={{ padding: "0" }} />
-              </div>
+                {animal}
+                <FormControlLabel
+                  id={animal}
+                  control={<Checkbox checked={usersList.includes(animal)} />}
+                  label="Compare"
+                  onChange={() => {
+                    if (usersList.includes(animal)) {
+                      const updatedPlayerList = usersList.filter(
+                        (playerId) => playerId !== animal
+                      );
+
+                      setUsersList(updatedPlayerList);
+                    } else {
+                      setUsersList([...usersList, animal]);
+                    }
+                  }}
+                />
+              </li>
             );
           })}
-        </Div>
+        </ul>
       </div>
     </div>
   );
